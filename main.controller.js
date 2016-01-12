@@ -40,22 +40,28 @@ angular
         var totalTracks = playlist.tracks.items.length;
         var tracklist = [];
         for(var i=0; i<totalTracks; i++){
-            tracklist.push(playlist.tracks.items[i].track.uri);
+            var eachTrack = playlist.tracks.items[i].track.uri;
+            if(eachTrack..substring(0, 13) !== 'spotify:local'){
+                tracklist.push(playlist.tracks.items[i].track.uri);                
+            }
         }
-        Spotify.createPlaylist(userId, {name: playlist.name, public: false}).then(function(data){
-            console.log(data);
-            Spotify.addPlaylistTracks(userId, data.id, tracklist).then(function(data){
-                $scope.loading = false;
-                $scope.playlist = false;
-                $scope.playlistSpotifyURI = '';
-                alert('Playlist cloned!');
+        if(tracklist.length > 0){
+            Spotify.createPlaylist(userId, {name: playlist.name, public: false}).then(function(data){
+                console.log(data);
+                Spotify.addPlaylistTracks(userId, data.id, tracklist).then(function(data){
+                    $scope.loading = false;
+                    $scope.playlist = false;
+                    $scope.playlistSpotifyURI = '';
+                    alert('Playlist cloned!');
+                }, function(data){
+                    $scope.loading = false;
+                    alert(data.error.message);
+                });
             }, function(data){
-                $scope.loading = false;
                 alert(data.error.message);
             });
-        }, function(data){
-            alert(data.error.message);
-        });
+        }
+
 
     };
 
