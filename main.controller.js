@@ -12,6 +12,7 @@ angular
     $scope.playlistSpotifyURI = '';
 
     $scope.fetchPlaylist = function (playlistSpotifyURI) {
+        playlistSpotifyURI = playlistSpotifyURI.trim();
         if(playlistSpotifyURI!==''){
             if(playlistSpotifyURI.substring(0, 8) === 'https://'){
                 playlistSpotifyURI = playlistSpotifyURI.replace('https://open.spotify.com/user/', '').replace('/playlist/', ':playlist:');
@@ -42,7 +43,7 @@ angular
         for(var i=0; i<totalTracks; i++){
             var eachTrack = playlist.tracks.items[i].track.uri;
             if(eachTrack..substring(0, 13) !== 'spotify:local'){
-                tracklist.push(playlist.tracks.items[i].track.uri);                
+                tracklist.push(playlist.tracks.items[i].track.uri);
             }
         }
         if(tracklist.length > 0){
