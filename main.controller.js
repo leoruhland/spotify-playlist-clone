@@ -42,7 +42,7 @@ angular
         var tracklist = [];
         for(var i=0; i<totalTracks; i++){
             var eachTrack = playlist.tracks.items[i].track.uri;
-            if(eachTrack..substring(0, 13) !== 'spotify:local'){
+            if(eachTrack.substring(0, 13) !== 'spotify:local'){
                 tracklist.push(playlist.tracks.items[i].track.uri);
             }
         }
